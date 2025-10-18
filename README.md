@@ -1,56 +1,3 @@
-<<<<<<< HEAD
-# ai_vibes
-
-# Herausforderung 08: Slash-Befehle
-
-## Beschreibung
-In dieser Herausforderung haben Sie die Aufgabe, die bestehende KI-Chatbot-Anwendung zu erweitern, um "Slash-Befehle" zu unterstützen.
-
-## Was sind Slash-Befehle?
-Slash-Befehle sind spezielle Befehle, die Benutzer in eine Chat-Schnittstelle eingeben können, typischerweise beginnend mit einem `/` (Schrägstrich), um bestimmte Aktionen oder Funktionen auszulösen.  
-Beispielsweise könnte in einer Chat-Anwendung die Eingabe von `/help` eine Liste verfügbarer Befehle anzeigen, oder `/giphy cat` könnte ein zufälliges Katzen-GIF einfügen.
-
-Das Konzept hinter Slash-Befehlen ist es, Benutzern schnellen, tastaturgesteuerten Zugang zu erweiterten Funktionen zu bieten, ohne den Chat-Kontext zu verlassen.  
-Wenn ein Benutzer einen Schrägstrich gefolgt von einem Befehl eingibt, fängt die Anwendung diese Eingabe ab, analysiert den Befehl und seine Argumente und führt dann die entsprechende Aktion aus.
-
-## Beispiele aus beliebten Anwendungen
-- **Slack:** `/remind me to call John at 3pm` setzt eine Erinnerung.  
-- **Discord:** `/ban @user` verbannt einen Benutzer vom Server.  
-- **Telegram:** `/start` startet eine Unterhaltung mit einem Bot.  
-- **GitHub:** `/assign @username` weist ein Issue oder Pull Request einem Benutzer zu.
-
-Diese Befehle verbessern die Produktivität und optimieren Arbeitsabläufe, indem sie Benutzern ermöglichen, komplexe Aktionen mit einfachen Texteingaben durchzuführen.
-
-## Anwendungskontext
-Dieser Abschnitt umreißt die beteiligten Bereiche der Anwendung. Slash-Befehle umfassen mehrere Bereiche wie:
-- Chat-Nachrichtenverarbeitung, bevor die Eingabe an ein KI-Modell gesendet wird  
-- Verschiedene Tools der Anwendung, z.B. könnte der Slash-Befehl `/weather` auf das bestehende Tool zugreifen und es verwenden  
-- Die Chat-Nachricht-Komponente, die die spezialisierte Antwort vom Tool/Slash-Befehl rendert
-
-## Relevante Komponenten
-Das Lösen dieser Herausforderung umfasst die folgenden Komponenten:
-- `ModelSelection` innerhalb der `chat.tsx`, `multimodal-input.tsx` Komponenten  
-
----
-
-# Developer Akademie
-
-- `/lib/ai/tools` für die Tool-Implementierungen, die unterstützt werden sollen  
-- `toolbar.tsx` für das Rendern aller Tools enthält die Tool-Komponente sowie die Tools-Komponente.
-
-## Slash-Befehl-Ideen
-Falls keine Ideen vorhanden sind, könnten die folgenden Slash-Befehle mit dieser Herausforderung implementiert werden:
-
-- `/weather` → gibt das aktuelle Wetter für den Standort des Benutzers unter Verwendung des Wetter-Tools zurück  
-  - `/weather <STADT|ORTSNAME>` würde dann die Wetterinformationen für die angegebene STADT oder den ORT zurückgeben  
-
-- `/suggest-project` → ein Slash-Befehl, der Schlüsselwörter als Eingabeargumente erhalten kann und dann Ideen für Projekte vorschlägt, die mit den Schlüsselwörtern verwandt sind  
-
-- `/quiz create <THEMA>` → erstellt ein Quiz mit immer 10 Boolean-Fragen (JA/NEIN-Fragen)  
-  - `/quiz -q <ANZAHL DER FRAGEN> create <THEMA>` → erstellt ein Quiz mit der angegebenen Anzahl von Boolean-Fragen für das bereitgestellte Thema  
-
----
-=======
 <a href="https://chat.vercel.ai/">
   <img alt="Next.js 14 and App Router-ready AI chatbot." src="app/(chat)/opengraph-image.png">
   <h1 align="center">Chat SDK</h1>
@@ -87,14 +34,14 @@ Falls keine Ideen vorhanden sind, könnten die folgenden Slash-Befehle mit diese
   - Seamless integration with Next.js and React
 - [Auth.js](https://authjs.dev)
   - Simple and secure authentication integrated with Convex
- - Artifact System with Lazy Loading
-   - Pluggable multi-kind artifacts (text, code, image, sheet) with streaming updates
-   - Dynamic, on-demand loading of heavier editor bundles (CodeMirror, ProseMirror, grid) to minimize initial payload
-   - Buffered stream handling so no output is lost while artifact modules load
- - Strong Developer Experience
-   - Biome + custom lint (ultracite) for formatting & quality
-   - Playwright end-to-end tests
-   - Type-safe Convex schema & generated client
+- Artifact System with Lazy Loading
+  - Pluggable multi-kind artifacts (text, code, image, sheet) with streaming updates
+  - Dynamic, on-demand loading of heavier editor bundles (CodeMirror, ProseMirror, grid) to minimize initial payload
+  - Buffered stream handling so no output is lost while artifact modules load
+- Strong Developer Experience
+  - Biome + custom lint (ultracite) for formatting & quality
+  - Playwright end-to-end tests
+  - Type-safe Convex schema & generated client
 
 ## Convex Backend
 
@@ -108,28 +55,32 @@ This template uses [Convex](https://convex.dev) as the backend platform, providi
 ### Convex Integration
 
 The application uses Convex for:
+
 - **User Management**: Storing user accounts and authentication data
 - **Chat Storage**: Persistent chat history with real-time updates
 - **Message Handling**: Efficient storage and retrieval of chat messages
 - **Document Management**: Artifact and document storage with versioning
 - **File Uploads**: Direct file storage with upload URLs
 - **Vote Tracking**: User feedback and voting on messages
- - **Suggestions**: Inline document suggestions and resolution tracking
- - **Streams**: Lightweight persisted stream tracking for resumable interactions
+- **Suggestions**: Inline document suggestions and resolution tracking
+- **Streams**: Lightweight persisted stream tracking for resumable interactions
 
 ## First Start Setup
 
 To set up the project for the first time:
 
 1. **Install Dependencies**:
+
    ```bash
    pnpm install
    ```
 
 2. **Set up Convex**:
+
    ```bash
    npx convex dev
    ```
+
    This will:
    - Create a new Convex project (or connect to existing)
    - Set up your development environment
@@ -161,18 +112,19 @@ The Convex setup will automatically handle database schema deployment and provid
 
 ### Artifact & Lazy Loading System
 
-| Kind  | Module Contents | Why Lazy Load? |
-|-------|-----------------|----------------|
-| text  | Prose editor + suggestion hooks | Rich editor libs are sizeable |
-| code  | CodeMirror setup & syntax highlighting | Multiple language packages |
-| image | Image manipulation + metadata UI | Avoid loading for text-only chats |
-| sheet | Data grid & CSV parsing | Heavy grid & parsing libs |
+| Kind  | Module Contents                        | Why Lazy Load?                    |
+| ----- | -------------------------------------- | --------------------------------- |
+| text  | Prose editor + suggestion hooks        | Rich editor libs are sizeable     |
+| code  | CodeMirror setup & syntax highlighting | Multiple language packages        |
+| image | Image manipulation + metadata UI       | Avoid loading for text-only chats |
+| sheet | Data grid & CSV parsing                | Heavy grid & parsing libs         |
 
 Implementation highlights:
- - `components/artifacts/dynamic-loader.ts` provides a cache + single in-flight promise per kind.
- - `components/data-stream-handler.tsx` now buffers stream parts per kind until the module resolves, then flushes in order.
- - UI components (`artifact.tsx`, toolbar, actions) show lightweight placeholders while the artifact definition loads.
- - Prevents unused editors from inflating the initial bundle, improving Time-to-Interactive.
+
+- `components/artifacts/dynamic-loader.ts` provides a cache + single in-flight promise per kind.
+- `components/data-stream-handler.tsx` now buffers stream parts per kind until the module resolves, then flushes in order.
+- UI components (`artifact.tsx`, toolbar, actions) show lightweight placeholders while the artifact definition loads.
+- Prevents unused editors from inflating the initial bundle, improving Time-to-Interactive.
 
 ### Streaming
 
@@ -181,32 +133,33 @@ Stream parts use structured delta types (`data-id`, `data-title`, `data-kind`, `
 ### File Upload Constraints
 
 Shared constants enforce limits client & server side:
- - Allowed MIME types: `image/jpeg`, `image/png`, `image/webp`
- - Max size: 7MB
+
+- Allowed MIME types: `image/jpeg`, `image/png`, `image/webp`
+- Max size: 7MB
 
 Update both sides by editing `lib/constants.ts` if constraints change.
 
 ## Environment Variables
 
-| Variable | Purpose |
-|----------|---------|
-| `NEXT_PUBLIC_CONVEX_URL` | Convex deployment URL (auto-set by `npx convex dev`). |
-| `AUTH_SECRET` | Secret for Auth.js session & JWT signing. |
-| `AI_GATEWAY_API_KEY` | API key for Vercel AI Gateway (non-Vercel or local multi-provider use). |
-| `AI_MODEL` | Override default model name (optional). |
-| `PLAYWRIGHT_TEST_BASE_URL` | Base URL used during Playwright tests (optional). |
-| `PORT` | Custom dev server port (optional). |
+| Variable                   | Purpose                                                                 |
+| -------------------------- | ----------------------------------------------------------------------- |
+| `NEXT_PUBLIC_CONVEX_URL`   | Convex deployment URL (auto-set by `npx convex dev`).                   |
+| `AUTH_SECRET`              | Secret for Auth.js session & JWT signing.                               |
+| `AI_GATEWAY_API_KEY`       | API key for Vercel AI Gateway (non-Vercel or local multi-provider use). |
+| `AI_MODEL`                 | Override default model name (optional).                                 |
+| `PLAYWRIGHT_TEST_BASE_URL` | Base URL used during Playwright tests (optional).                       |
+| `PORT`                     | Custom dev server port (optional).                                      |
 
 ## Feature Flags
 
 All feature flags follow the pattern `APP_ENABLE_<FEATURE>` and default to disabled when absent or set to a falsy value (`0`, `false`, `off`, `no`, empty).
 
-| Flag | Description | Env Var | Default |
-|------|-------------|---------|---------|
-| Guest Accounts | Allow automatic provisioning + guest sign-in flow | `APP_ENABLE_GUEST_ACCOUNTS` | false |
-| Share Conversations | Enable public visibility and sharing toggle for chats | `APP_ENABLE_SHARE_CONVERSATIONS` | false |
-| Upload Files | Allow uploading attachments in chat input | `APP_ENABLE_UPLOAD_FILES` | false |
-| Weather Tool | Activate the `getWeather` tool (UI + model tool calls) | `APP_ENABLE_WEATHER_TOOL` | false |
+| Flag                | Description                                            | Env Var                          | Default |
+| ------------------- | ------------------------------------------------------ | -------------------------------- | ------- |
+| Guest Accounts      | Allow automatic provisioning + guest sign-in flow      | `APP_ENABLE_GUEST_ACCOUNTS`      | false   |
+| Share Conversations | Enable public visibility and sharing toggle for chats  | `APP_ENABLE_SHARE_CONVERSATIONS` | false   |
+| Upload Files        | Allow uploading attachments in chat input              | `APP_ENABLE_UPLOAD_FILES`        | false   |
+| Weather Tool        | Activate the `getWeather` tool (UI + model tool calls) | `APP_ENABLE_WEATHER_TOOL`        | false   |
 
 Truthy values: `1`, `true`, `on`, `yes` (case-insensitive). Any other non-empty value is treated as enabled for forward compatibility.
 
@@ -220,9 +173,10 @@ APP_ENABLE_WEATHER_TOOL=yes
 ```
 
 When a feature is disabled:
-* UI elements are hidden (e.g., file upload button, share dropdown, weather tool output).
-* Server routes/actions enforce gating (guest session creation, file uploads, chat visibility changes, weather tool invocation).
-* Attempts to access disabled server functionality return a structured `forbidden:feature` error.
+
+- UI elements are hidden (e.g., file upload button, share dropdown, weather tool output).
+- Server routes/actions enforce gating (guest session creation, file uploads, chat visibility changes, weather tool invocation).
+- Attempts to access disabled server functionality return a structured `forbidden:feature` error.
 
 Implementation details are in `lib/feature-flags.tsx`.
 
@@ -230,14 +184,14 @@ Create `.env.local` from `.env.example` and supply these as needed.
 
 ## Scripts
 
-| Script | Command | Description |
-|--------|---------|-------------|
-| dev | `next dev --turbo` | Start development server with Turbo mode. |
-| build | `next build` | Production build. |
-| start | `next start` | Run built app. |
-| lint | `npx ultracite@latest check` | Run lint & static checks (Biome + rules). |
-| format | `npx ultracite@latest fix` | Auto-fix formatting & simple issues. |
-| test | `PLAYWRIGHT=True playwright test` | Execute Playwright E2E suite. |
+| Script | Command                           | Description                               |
+| ------ | --------------------------------- | ----------------------------------------- |
+| dev    | `next dev --turbo`                | Start development server with Turbo mode. |
+| build  | `next build`                      | Production build.                         |
+| start  | `next start`                      | Run built app.                            |
+| lint   | `npx ultracite@latest check`      | Run lint & static checks (Biome + rules). |
+| format | `npx ultracite@latest fix`        | Auto-fix formatting & simple issues.      |
+| test   | `PLAYWRIGHT=True playwright test` | Execute Playwright E2E suite.             |
 
 ## Quality & Testing
 
@@ -260,6 +214,7 @@ Create `.env.local` from `.env.example` and supply these as needed.
 - Preload frequently used artifact kinds based on user behavior heuristics.
 
 ---
+
 If you discover an inconsistency or missing section, feel free to open an issue or PR.
 
 ## Model Providers
@@ -308,4 +263,63 @@ pnpm dev
 Your app template should now be running on [localhost:3000](http://localhost:3000).
 
 > For an in-depth architecture and deployment reference, see the [Stack Guide](docs/STACK_INSTRUCTIONS.md).
->>>>>>> starter/main
+
+# ai_vibes
+
+# Herausforderung 08: Slash-Befehle
+
+## Beschreibung
+
+In dieser Herausforderung haben Sie die Aufgabe, die bestehende KI-Chatbot-Anwendung zu erweitern, um "Slash-Befehle" zu unterstützen.
+
+## Was sind Slash-Befehle?
+
+Slash-Befehle sind spezielle Befehle, die Benutzer in eine Chat-Schnittstelle eingeben können, typischerweise beginnend mit einem `/` (Schrägstrich), um bestimmte Aktionen oder Funktionen auszulösen.  
+Beispielsweise könnte in einer Chat-Anwendung die Eingabe von `/help` eine Liste verfügbarer Befehle anzeigen, oder `/giphy cat` könnte ein zufälliges Katzen-GIF einfügen.
+
+Das Konzept hinter Slash-Befehlen ist es, Benutzern schnellen, tastaturgesteuerten Zugang zu erweiterten Funktionen zu bieten, ohne den Chat-Kontext zu verlassen.  
+Wenn ein Benutzer einen Schrägstrich gefolgt von einem Befehl eingibt, fängt die Anwendung diese Eingabe ab, analysiert den Befehl und seine Argumente und führt dann die entsprechende Aktion aus.
+
+## Beispiele aus beliebten Anwendungen
+
+- **Slack:** `/remind me to call John at 3pm` setzt eine Erinnerung.
+- **Discord:** `/ban @user` verbannt einen Benutzer vom Server.
+- **Telegram:** `/start` startet eine Unterhaltung mit einem Bot.
+- **GitHub:** `/assign @username` weist ein Issue oder Pull Request einem Benutzer zu.
+
+Diese Befehle verbessern die Produktivität und optimieren Arbeitsabläufe, indem sie Benutzern ermöglichen, komplexe Aktionen mit einfachen Texteingaben durchzuführen.
+
+## Anwendungskontext
+
+Dieser Abschnitt umreißt die beteiligten Bereiche der Anwendung. Slash-Befehle umfassen mehrere Bereiche wie:
+
+- Chat-Nachrichtenverarbeitung, bevor die Eingabe an ein KI-Modell gesendet wird
+- Verschiedene Tools der Anwendung, z.B. könnte der Slash-Befehl `/weather` auf das bestehende Tool zugreifen und es verwenden
+- Die Chat-Nachricht-Komponente, die die spezialisierte Antwort vom Tool/Slash-Befehl rendert
+
+## Relevante Komponenten
+
+Das Lösen dieser Herausforderung umfasst die folgenden Komponenten:
+
+- `ModelSelection` innerhalb der `chat.tsx`, `multimodal-input.tsx` Komponenten
+
+---
+
+# Developer Akademie
+
+- `/lib/ai/tools` für die Tool-Implementierungen, die unterstützt werden sollen
+- `toolbar.tsx` für das Rendern aller Tools enthält die Tool-Komponente sowie die Tools-Komponente.
+
+## Slash-Befehl-Ideen
+
+Falls keine Ideen vorhanden sind, könnten die folgenden Slash-Befehle mit dieser Herausforderung implementiert werden:
+
+- `/weather` → gibt das aktuelle Wetter für den Standort des Benutzers unter Verwendung des Wetter-Tools zurück
+  - `/weather <STADT|ORTSNAME>` würde dann die Wetterinformationen für die angegebene STADT oder den ORT zurückgeben
+
+- `/suggest-project` → ein Slash-Befehl, der Schlüsselwörter als Eingabeargumente erhalten kann und dann Ideen für Projekte vorschlägt, die mit den Schlüsselwörtern verwandt sind
+
+- `/quiz create <THEMA>` → erstellt ein Quiz mit immer 10 Boolean-Fragen (JA/NEIN-Fragen)
+  - `/quiz -q <ANZAHL DER FRAGEN> create <THEMA>` → erstellt ein Quiz mit der angegebenen Anzahl von Boolean-Fragen für das bereitgestellte Thema
+
+---
